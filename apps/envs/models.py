@@ -3,7 +3,7 @@ from django.db import models
 
 class EnvInfo(models.Model):
     e_id = models.BigAutoField(primary_key=True)
-    p_id = models.BigIntegerField(null=False, verbose_name='所属项目')
+    p_id = models.BigIntegerField(null=True, verbose_name='所属项目')
     e_name = models.CharField(max_length=50, null=True, unique=True, verbose_name='环境名称')
     e_value = models.CharField(max_length=150, null=True, verbose_name='环境变量')
     is_default = models.IntegerField(null=True, verbose_name='是否默认')
