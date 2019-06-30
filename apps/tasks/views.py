@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import TaskListSerializer, TaskInfoSerializer, \
-    TaskExtendSerializer, TaskExtendInfoSerializer, TaskResultSerializer
+    TaskExtendSerializer, TaskExtendInfoSerializer, TaskResultGroupSerializer, TaskResultSerializer
 from .models import TaskInfo, TaskExtendInfo, TaskResult
 from apis.models import ApiInfo
 from apis.serializers import ApiSerializer
@@ -299,7 +299,7 @@ class TaskResultListView(APIView):
             t_id = request.GET.get('t_id', None)
             if t_id:
                 taskResult = TaskResult.objects.filter(t_id=t_id).values('batch_id', 'execute_user').distinct()
-                data = TaskResultSerializer(taskResult, many=True).data
+                data = TaskResultGroupSerializer(taskResult, many=True).data
                 return Response({'code': 'success', 'list': data})
             else:
                 return Response({'code': 'error', 'msg': '任务ID不能为空'})
@@ -325,3 +325,23 @@ class DelTaskResultView(APIView):
         except Exception as e:
             print(e)
             return Response({'code': 'error', 'msg': '删除记录失败'})
+
+
+class TaskResultView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = (authentication.JSONWebTokenAuthentication,)
+
+    def get(self, request):
+        try:
+            batch_id = request.GET.get('batch_id', None)
+            if batch_id:
+                taskresult = TaskResult.objects.filter(batch_id=batch_id).all()
+                if not taskresult:
+                    return Response({'code': '404', 'msg': '该批次记录不存在'})
+                data = TaskResultSerializer(taskresult, many=True).data
+                return Response({'code': 'success', 'list': data})
+            else:
+                return Response({'code': 'error', 'msg': '批次ID不能为空'})
+        except Exception as e:
+            print(e)
+            return Response({'code': 'error', 'msg': '获取结果详情异常'})

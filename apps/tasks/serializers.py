@@ -20,13 +20,17 @@ class TaskExtendSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TaskResultSerializer(serializers.ModelSerializer):
-    # batch_id = serializers.CharField()
-    # execute_user = serializers.CharField()
+class TaskResultGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskResult
-        # fields = '__all__'
         fields = ('batch_id', 'execute_user')
+
+
+class TaskResultSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TaskResult
+        fields = '__all__'
 
 
 class TaskListSerializer(serializers.ModelSerializer):

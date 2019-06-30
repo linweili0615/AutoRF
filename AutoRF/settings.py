@@ -28,7 +28,7 @@ SECRET_KEY = '&cgnxud$&%r8b1+fap-m_il-s--67l)j2!&m=(oa%edj=2^92g'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '192.168.6.150'
+    'localhost'
 ]
 
 # Application definition
@@ -57,9 +57,9 @@ INSTALLED_APPS = [
 # }
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.IsAdminUser',
-    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAdminUser',
+    ],
     'DEFAULT_PAGINATION_CLASS':  'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -118,7 +118,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'autorf',
-        'HOST': '192.168.6.30',
+        'HOST': 'localhost',
         'PORT': 3308,
         'USER': 'root',
         'PASSWORD': '123456a'

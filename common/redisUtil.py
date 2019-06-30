@@ -5,5 +5,5 @@ import redis
 
 
 def getRedis():
-    return redis.Redis(host='192.168.6.30', port=6379, password='linweili123')
+    return redis.Redis(host='localhost', port=6379, password='linweili123', db=0)
 

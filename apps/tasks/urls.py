@@ -4,7 +4,8 @@
 from django.urls import path
 from .views import TaskListView, DelTaskView, DealTaskView, GetTaskView, \
     TaskExtendInfoListView, TaskExtendStatusView, DelTaskExtendView, AddTaskExtendView, \
-    EditTaskView, ChangeTaskExtendInfoRankView, TaskTestView, TaskResultListView, AddTaskView, DelTaskResultView
+    EditTaskView, ChangeTaskExtendInfoRankView, TaskTestView, TaskResultListView, \
+    AddTaskView, DelTaskResultView, TaskResultView
 
 urlpatterns = [
     # path('add', AddApiView.as_view()),
@@ -22,4 +23,5 @@ urlpatterns = [
     path('test', TaskTestView.as_view()),
     path('result/list', TaskResultListView.as_view()),
     path('result/del', DelTaskResultView.as_view()),
+    path('result/get', TaskResultView.as_view()),
 ]
