@@ -33,6 +33,22 @@ class TaskResultSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class TaskResultJoinTaskExtendSerializer(serializers.ModelSerializer):
+    batch_id = serializers.CharField()
+    te_id = serializers.IntegerField()
+    te_name = serializers.SerializerMethodField()
+    t_status = serializers.IntegerField()
+
+    class Meta:
+        model = TaskResult
+        fields = ('batch_id', 'te_id', 'te_name', 't_status',)
+
+    def get_te_name(self, obj):
+        return TaskExtendSerializer(
+            TaskExtendInfo.objects.filter(te_id=obj.te_id).first()
+        ).data['te_name']
+
+
 class TaskListSerializer(serializers.ModelSerializer):
     t_id = serializers.IntegerField()
     t_name = serializers.CharField()

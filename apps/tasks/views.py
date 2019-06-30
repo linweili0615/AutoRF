@@ -1,7 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import TaskListSerializer, TaskInfoSerializer, \
-    TaskExtendSerializer, TaskExtendInfoSerializer, TaskResultGroupSerializer, TaskResultSerializer
+    TaskExtendSerializer, TaskExtendInfoSerializer, \
+    TaskResultGroupSerializer, TaskResultJoinTaskExtendSerializer
 from .models import TaskInfo, TaskExtendInfo, TaskResult
 from apis.models import ApiInfo
 from apis.serializers import ApiSerializer
@@ -338,7 +339,7 @@ class TaskResultView(APIView):
                 taskresult = TaskResult.objects.filter(batch_id=batch_id).all()
                 if not taskresult:
                     return Response({'code': '404', 'msg': '该批次记录不存在'})
-                data = TaskResultSerializer(taskresult, many=True).data
+                data = TaskResultJoinTaskExtendSerializer(taskresult, many=True).data
                 return Response({'code': 'success', 'list': data})
             else:
                 return Response({'code': 'error', 'msg': '批次ID不能为空'})
